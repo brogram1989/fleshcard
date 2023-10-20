@@ -10,7 +10,7 @@
       <p>Welcome to my first Django project!</p>
       <ul>
         {% for x in my_words %}
-            <li> 1 {{x.word}} </li>
+            <li> {{x.word}} - {{x.translate}} </li>
         {% endfor %}
       </ul>
 
