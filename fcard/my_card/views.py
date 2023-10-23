@@ -9,7 +9,7 @@ from .models import FlashWord
 #FleshWorddagi barcha wordlarni chiqazib olamiz
 
 def index(request):
-    my_words = FlashWord.objects.all().values()
+    my_words = FlashWord.objects.all()
 
     #template = loader.get_template('my_card/index.html')
     #yuqoridagi ikkinchi variant view uchun, lekin natija bir xil bo'ladi
@@ -17,6 +17,12 @@ def index(request):
     return render(request, 'my_card/index.html', context=context)
     #return HttpResponse(template.render(context, request))
     # yuqoridagi ikkinchi variant view uchun, lekin natija bir xil bo'ladi
+
+
+def word(request, smth):
+    someword = FlashWord.objects.get(word=smth)
+    context = {"someword":someword}
+    return render(request, "my_card/word.html", {"someword":someword})
 
 
 

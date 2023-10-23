@@ -1,18 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Birinchi Django proekt</title>
-</head>
-<body>
+{% extends "my_card/base.html" %}
 
+{% block body %}
       <h1>Hello World!</h1>
       <p>Welcome to my first Django project!</p>
       <ul>
         {% for x in my_words %}
+            <a href = "{% url 'word' x.word %}">
             <li> {{x.word}} - {{x.translate}} </li>
+            </a>
         {% endfor %}
       </ul>
-
-</body>
-</html>
+{% endblock %}
