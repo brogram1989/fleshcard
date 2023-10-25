@@ -1,0 +1,18 @@
+{% extends "my_card/base.html" %}
+
+{% block title %}
+add new word
+{% endblock %}
+
+{% block body %}
+
+<hr>
+<form action="{% url 'index' %}" method="POST">
+    {% csrf_token %}
+    word  <input type="text" name="wrd"><br>
+    translate  <input type="text" name="trnslt"><br>
+    defenition  <input type="text" name="dfntn"><br>
+                <input type="submit" value="add">
+</form>
+
+{% endblock %}

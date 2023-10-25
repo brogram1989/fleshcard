@@ -1,13 +1,17 @@
 {% extends "my_card/base.html" %}
+{% block title %}
+Bosh sahifa. Djangodagi ilk proektim
+{% endblock %}
 
 {% block body %}
       <h1>Hello World!</h1>
       <p>Welcome to my first Django project!</p>
       <ul>
         {% for x in my_words %}
-            <a href = "{% url 'word' x.word %}">
+            <a href = "{% url 'wordpage' x.word %}">
             <li> {{x.word}} - {{x.translate}} </li>
             </a>
         {% endfor %}
       </ul>
+
 {% endblock %}

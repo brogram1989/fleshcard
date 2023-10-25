@@ -1,0 +1,19 @@
+{% extends "my_card/base.html" %}
+
+{% block title %}
+{{someword.word}}
+{% endblock %}
+
+{% block body %}
+
+<hr>
+<form action="{% url 'index' %}" method="POST">
+    {% csrf_token %}
+    word  <input type="text" name="wrd" value="{{someword.word}}"><br>
+    translate  <input type="text" name="trnslt" value="{{someword.translate}}"><br>
+    defenition  <input type="text" name="dfntn" value="{{someword.defenition}}"><br>
+                <input type="submit" value="update">
+</form>
+
+
+{% endblock %}

@@ -1,9 +1,14 @@
 {% extends "my_card/base.html" %}
 
+{% block title %}
+{{someword.word}}
+{% endblock %}
+
 {% block body %}
 
     <h1>{{someword.word}}</h1>
-    <h2 style="bolt">{{someword.translate}}</h2>
+    <h2 >{{someword.translate}}</h2>
     <h2>{{someword.defenition}}</h2>
-<a href="{% url 'index' %}"> bosh sahifaga qaytish </a>
+<br>
+    <a href="{% url 'update' %}">update</a>
 {% endblock %}

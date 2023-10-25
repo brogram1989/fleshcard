@@ -1,11 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Birinchi Django proekt</title>
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
 </head>
 <body>
+   <a href="{% url 'index' %}"> bosh sahifaga qaytish </a>
     {% block body %}
     {% endblock %}
+    <hr>
+ <br>
+    <a href="{% url 'add' %}">add new word</a>
+<br>
+    <a href="{% url 'testing' %}">test sahifasi</a>
+
 </body>
 </html>
