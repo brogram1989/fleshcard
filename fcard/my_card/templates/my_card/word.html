@@ -10,5 +10,6 @@
     <h2 >{{someword.translate}}</h2>
     <h2>{{someword.defenition}}</h2>
 <br>
-    <a href="{% url 'update' %}">update</a>
+    <a href="{% url 'update' someword.id %}">update</a><br>
+    <a href="{% url 'delate' someword.id %}">delate</a>
 {% endblock %}

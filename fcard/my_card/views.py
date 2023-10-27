@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.template import loader
 from .models import FlashWord
+from .forms import *
 
 # Create your views here.
 
@@ -9,16 +10,31 @@ from .models import FlashWord
 #FleshWorddagi barcha wordlarni chiqazib olamiz
 
 def index(request):
+    #index sahifasiga biror metod yordamida o'tilgan bo'lsa
+    if request.method == 'POST':
+        form = FlashWordForm(request.POST)
+        if form.is_valid():
+            # agar word kiritilgan bo'lsa umumiy lug'atga qo'shadi
+            # word = request.POST.get('word')
+            # translate = request.POST.get('translate')
+            # defenition = request.POST.get('defenition')
+            # new_one = FlashWord(word=word, translate=translate, defenition=defenition)
+            # new_one.save()
+            #yuqoridagi 4 qator kodni bir qatorga kiritdi
+            """birinchi html bilan, keyin Django.form yordamida forma yasadik.
+            modellar uchun formalarni birinchisida qo'lda yozib , keyin modelfrom 
+            yordamida mavjud modellarning formalarini avtomatik yaratdik"""
 
-    wrd = request.POST.get('wrd')
-    trnslt = request.POST.get('trnslt')
-    dfntn = request.POST.get('dfntn')
-    #agar wrd kiritilgan bo'lsa umumiy lug'atga qo'shadi
-    if wrd :
-        new_one = FlashWord(word=wrd, translate=trnslt, defenition=dfntn)
-        new_one.save()
+            band = form.save()
+
+            #return redirect('wordpage', band.id)
+            #word templatega qaytishimiz mumkun agar # ni olib qo'ysak
+
+            # if the form is not valid, we let execution continue to the return
     else:
-        pass
+        # this must be a GET request, so create an empty form
+        form = FlashWordForm()
+
 
     my_words = FlashWord.objects.all()
     context = {'my_words':my_words}
@@ -27,19 +43,36 @@ def index(request):
 
 
 def wordpage(request, smth):
-    someword = FlashWord.objects.get(word=smth)
+    someword = FlashWord.objects.get(id=smth)
     return render(request, "my_card/word.html", {"someword":someword})
 
 def add(request):
     #context = {'word':word, 'translate':translate, 'defenition':defenition}
-    return render(request, "my_card/add.html")
+    add_form = FlashWordForm()
+    return render(request, "my_card/add.html", {'add_form':add_form})
 
-def delate(request):
-    pass
+def delate(request, id):
+    someword = FlashWord.objects.get(id=id) # we need this for both GET and POST
 
-def update(request, smth):
-    someword = FlashWord.objects.get(word=smth)
-    return render(request, "my_card/update.html", {"someword": someword})
+    if request.method == 'POST':
+        someword.delate()
+        # redirect to the wordpage
+        return redirect('wordpage')
+    # no need for an `else` here. If it's a GET request, just continue
+
+    return render(request, "my_card/delate.html", {"someword": someword})
+
+def update(request, id):
+    someword = FlashWord.objects.get(id=id)
+    form = FlashWordForm(instance=someword) # prepopulate the form with an existing band
+    if form.is_valid():
+        #update the existing word
+        band = form.save()
+        return redirect('wordpage', someword.id)
+    else:
+        form = FlashWordForm(instance=someword)
+
+    return render(request, "my_card/update.html", {"form": form})
 
 #for testing
 def testing(request):

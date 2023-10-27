@@ -8,9 +8,10 @@ Bosh sahifa. Djangodagi ilk proektim
       <p>Welcome to my first Django project!</p>
       <ul>
         {% for x in my_words %}
-            <a href = "{% url 'wordpage' x.word %}">
-            <li> {{x.word}} - {{x.translate}} </li>
+            <a href = "{% url 'wordpage' x.id %}">
+            <li> {{x.word}} - {{x.translate}}
             </a>
+            <a href = "{% url 'update' x.id %}">    &#128393; </li></a>
         {% endfor %}
       </ul>
 

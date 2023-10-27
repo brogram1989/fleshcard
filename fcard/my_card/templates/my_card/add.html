@@ -9,9 +9,7 @@ add new word
 <hr>
 <form action="{% url 'index' %}" method="POST">
     {% csrf_token %}
-    word  <input type="text" name="wrd"><br>
-    translate  <input type="text" name="trnslt"><br>
-    defenition  <input type="text" name="dfntn"><br>
+    {{ add_form.as_p   }}
                 <input type="submit" value="add">
 </form>
 

@@ -5,14 +5,12 @@
 {% endblock %}
 
 {% block body %}
+<h1>update word</h1>
 
-<hr>
-<form action="{% url 'index' %}" method="POST">
+<form action="" method="post">
     {% csrf_token %}
-    word  <input type="text" name="wrd" value="{{someword.word}}"><br>
-    translate  <input type="text" name="trnslt" value="{{someword.translate}}"><br>
-    defenition  <input type="text" name="dfntn" value="{{someword.defenition}}"><br>
-                <input type="submit" value="update">
+    {{ form.as_p }}
+    <input type="submit" value="update">
 </form>
 
 
