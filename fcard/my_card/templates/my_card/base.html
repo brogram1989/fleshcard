@@ -7,11 +7,14 @@
         {% block title %}
         {% endblock %}
     </title>
+    <link rel="stylesheet" href="{% static 'mystyles.css' %}">
 </head>
 <body>
-   <a href="{% url 'index' %}"> bosh sahifaga qaytish </a><br>
-       <a href="{% url 'add' %}">add new word</a>
-    {% block body %}
+    <div class="topnav">
+        <a href="{% url 'index' %}"> bosh sahifaga qaytish </a><br>
+        <a href="{% url 'add' %}">add new word</a>
+    </div>
+    {% block content %}
     {% endblock %}
     <hr>
  <br>

@@ -4,12 +4,14 @@
 {{someword.word}}
 {% endblock %}
 
-{% block body %}
+{% block content %}
 
+<div class="mycard">
     <h1>{{someword.word}}</h1>
     <h2 >{{someword.translate}}</h2>
     <h2>{{someword.defenition}}</h2>
+    </div>
 <br>
     <a href="{% url 'update' someword.id %}">update</a><br>
-    <a href="{% url 'delate' someword.id %}">delate</a>
+    <a href="{% url 'delete' someword.id %}">delete</a>
 {% endblock %}

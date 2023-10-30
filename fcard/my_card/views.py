@@ -36,7 +36,7 @@ def index(request):
         form = FlashWordForm()
 
 
-    my_words = FlashWord.objects.all()
+    my_words = FlashWord.objects.all().order_by('word')
     context = {'my_words':my_words}
 
     return render(request, 'my_card/index.html', context=context)
@@ -51,26 +51,29 @@ def add(request):
     add_form = FlashWordForm()
     return render(request, "my_card/add.html", {'add_form':add_form})
 
-def delate(request, id):
+def delete(request, id):
     someword = FlashWord.objects.get(id=id) # we need this for both GET and POST
 
     if request.method == 'POST':
-        someword.delate()
+        someword.delete()
+
         # redirect to the wordpage
-        return redirect('wordpage')
+        return redirect('index')
     # no need for an `else` here. If it's a GET request, just continue
 
-    return render(request, "my_card/delate.html", {"someword": someword})
+    return render(request, "my_card/delete.html", {"someword": someword})
 
 def update(request, id):
     someword = FlashWord.objects.get(id=id)
-    form = FlashWordForm(instance=someword) # prepopulate the form with an existing band
-    if form.is_valid():
-        #update the existing word
-        band = form.save()
-        return redirect('wordpage', someword.id)
-    else:
-        form = FlashWordForm(instance=someword)
+    form=FlashWordForm(instance=someword)
+    if request.method == "POST":
+        form = FlashWordForm(request.POST,  instance=someword) # prepopulate the form with an existing band
+        if form.is_valid():
+            #update the existing word
+            form.save()
+            return redirect('wordpage', someword.id)
+        else:
+            form = FlashWordForm(instance=someword)
 
     return render(request, "my_card/update.html", {"form": form})
 

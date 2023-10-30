@@ -4,14 +4,15 @@
 {{someword.word}}
 {% endblock %}
 
-{% block body %}
+{% block content %}
 <h1>update word</h1>
 
-<form action="" method="post">
+<form action=""  method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="update">
 </form>
+
 
 
 {% endblock %}

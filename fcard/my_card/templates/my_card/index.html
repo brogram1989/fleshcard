@@ -3,16 +3,18 @@
 Bosh sahifa. Djangodagi ilk proektim
 {% endblock %}
 
-{% block body %}
-      <h1>Hello World!</h1>
+{% block content %}
+
+<div class="mycard">
+          <h1>Hello World!</h1>
       <p>Welcome to my first Django project!</p>
       <ul>
-        {% for x in my_words %}
+        {% for x in my_words reversed %}
             <a href = "{% url 'wordpage' x.id %}">
-            <li> {{x.word}} - {{x.translate}}
+            <li onclick="window.location= details"> {{x.word}} - {{x.translate}}
             </a>
             <a href = "{% url 'update' x.id %}">    &#128393; </li></a>
         {% endfor %}
       </ul>
-
+</div>
 {% endblock %}
