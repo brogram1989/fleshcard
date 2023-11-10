@@ -12,13 +12,14 @@
 <body>
     <div class="topnav">
         <a href="{% url 'index' %}"> bosh sahifaga qaytish </a><br>
-        <a href="{% url 'add' %}">add new word</a>
+        <a href="{% url 'set_create' %}">create new set</a>
+
     </div>
     {% block content %}
     {% endblock %}
     <hr>
  <br>
-    <a href="{% url 'add' %}">add new word</a>
+    <a href="{% url 'set_create' %}">create new set</a>
 <br>
     <a href="{% url 'testing' %}">test sahifasi</a>
 

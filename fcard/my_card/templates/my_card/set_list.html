@@ -1,0 +1,25 @@
+{% extends "my_card/base.html" %}
+
+{% block title %}
+{{my_sets.name}} : {{my_sets.description}}
+{% endblock %}
+
+{% block content %}
+
+<div class="mycard">
+    <h1>{{my_sets.name}}</h1>
+    <h2 >{{my_sets.description}}</h2>
+</div>
+
+        <div>
+            {% for word in my_sets.word_set.all %}
+                <div  class="mycard">
+            <a href = "{% url 'wordpage' word.id %}">
+             <li onclick="window.location= details"> {{ word.word }}
+            </a>
+                </div>
+            {% endfor %}
+        </div>
+ <br>
+    <a href="{% url 'word_add' %}">add new word</a>
+{% endblock %}

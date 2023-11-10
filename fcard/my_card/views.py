@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.template import loader
-from .models import Word
+from .models import Word, Set
 from .forms import *
 
 # Create your views here.
@@ -35,12 +35,30 @@ def index(request):
         # this must be a GET request, so create an empty form
         form = WordForm()
 
-
+    my_sets = Set.objects.all()
     my_words = Word.objects.all().order_by('word')
-    context = {'my_words':my_words}
+
+    context = {'my_sets': my_sets,'my_words':my_words}
 
     return render(request, 'my_card/index.html', context=context)
 
+def set_create(request):
+
+    if request.method == 'POST':
+        form = SetForm(request.POST)
+        if form.is_valid():
+            # agar word kiritilgan bo'lsa umumiy lug'atga qo'shadi
+            set = form.save()
+            return redirect('index')
+    else:
+        # this must be a GET request, so create an empty form
+        set_create = SetForm()
+
+    return render(request, "my_card/set_create.html", {'set_create':set_create})
+def set_list(request, smth):
+    my_sets = Set.objects.get(id=smth)
+    context = {"my_sets":my_sets}
+    return render(request, "my_card/set_list.html", context=context )
 
 def wordpage(request, smth):
     someword = Word.objects.get(id=smth)
