@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.template import loader
-from .models import FlashWord
+from .models import Word
 from .forms import *
 
 # Create your views here.
@@ -12,7 +12,7 @@ from .forms import *
 def index(request):
     #index sahifasiga biror metod yordamida o'tilgan bo'lsa
     if request.method == 'POST':
-        form = FlashWordForm(request.POST)
+        form = WordForm(request.POST)
         if form.is_valid():
             # agar word kiritilgan bo'lsa umumiy lug'atga qo'shadi
             # word = request.POST.get('word')
@@ -33,26 +33,26 @@ def index(request):
             # if the form is not valid, we let execution continue to the return
     else:
         # this must be a GET request, so create an empty form
-        form = FlashWordForm()
+        form = WordForm()
 
 
-    my_words = FlashWord.objects.all().order_by('word')
+    my_words = Word.objects.all().order_by('word')
     context = {'my_words':my_words}
 
     return render(request, 'my_card/index.html', context=context)
 
 
 def wordpage(request, smth):
-    someword = FlashWord.objects.get(id=smth)
+    someword = Word.objects.get(id=smth)
     return render(request, "my_card/word.html", {"someword":someword})
 
 def add(request):
     #context = {'word':word, 'translate':translate, 'defenition':defenition}
-    add_form = FlashWordForm()
+    add_form = WordForm()
     return render(request, "my_card/add.html", {'add_form':add_form})
 
 def delete(request, id):
-    someword = FlashWord.objects.get(id=id) # we need this for both GET and POST
+    someword = Word.objects.get(id=id) # we need this for both GET and POST
 
     if request.method == 'POST':
         someword.delete()
@@ -64,16 +64,16 @@ def delete(request, id):
     return render(request, "my_card/delete.html", {"someword": someword})
 
 def update(request, id):
-    someword = FlashWord.objects.get(id=id)
-    form=FlashWordForm(instance=someword)
+    someword = Word.objects.get(id=id)
+    form=WordForm(instance=someword)
     if request.method == "POST":
-        form = FlashWordForm(request.POST,  instance=someword) # prepopulate the form with an existing band
+        form = WordForm(request.POST,  instance=someword) # prepopulate the form with an existing band
         if form.is_valid():
             #update the existing word
             form.save()
             return redirect('wordpage', someword.id)
         else:
-            form = FlashWordForm(instance=someword)
+            form = WordForm(instance=someword)
 
     return render(request, "my_card/update.html", {"form": form})
 

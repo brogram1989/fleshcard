@@ -8,6 +8,9 @@ Bosh sahifa. Djangodagi ilk proektim
 <div class="mycard">
           <h1>Hello World!</h1>
       <p>Welcome to my first Django project!</p>
+
+
+
       <ul>
         {% for x in my_words reversed %}
             <a href = "{% url 'wordpage' x.id %}">
@@ -16,5 +19,9 @@ Bosh sahifa. Djangodagi ilk proektim
             <a href = "{% url 'update' x.id %}">    &#128393; </li></a>
         {% endfor %}
       </ul>
+
+
+
+
 </div>
 {% endblock %}
