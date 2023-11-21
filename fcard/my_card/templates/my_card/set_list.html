@@ -1,18 +1,19 @@
 {% extends "my_card/base.html" %}
 
 {% block title %}
-{{my_sets.name}} : {{my_sets.description}}
+{{my_set.name}} : {{my_set.description}}
 {% endblock %}
 
 {% block content %}
 
 <div class="mycard">
-    <h1>{{my_sets.name}}</h1>
-    <h2 >{{my_sets.description}}</h2>
+    <h1>{{my_set.name}}</h1>
+    <h2 >{{my_set.description}}</h2>
+    <h3 >list idisi - {{my_set.id}}</h3>
 </div>
 
         <div>
-            {% for word in my_sets.word_set.all %}
+            {% for word in my_set.word_set.all %}
                 <div  class="mycard">
             <a href = "{% url 'wordpage' word.id %}">
              <li onclick="window.location= details"> {{ word.word }}
@@ -20,6 +21,8 @@
                 </div>
             {% endfor %}
         </div>
- <br>
-    <a href="{% url 'word_add' %}">add new word</a>
+
+    <a href="{% url 'set_update' id=my_set.id %}">update this set</a><br>
+    <a href="{% url 'set_delete' id=my_set.id %}">delete this set</a><br>
+    <a href="{% url 'word_add' %}">add new word</a><br>
 {% endblock %}

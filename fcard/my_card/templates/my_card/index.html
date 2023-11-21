@@ -10,23 +10,11 @@ Bosh sahifa. Djangodagi ilk proektim
       <p>Welcome to my first Django project!</p>
     {% for my_set in my_sets reversed %}
     <div>
-         <a href = "{% url 'set_list' my_set.id %}">
-             <li onclick="window.location= details"> {{my_set}}
+         <a href = "{% url 'set_list' my_set.name %}">
+             <li onclick="window.location= details"> {{my_set.name}}
          </a>
     </div>
     {% endfor %}
-
-<!--      <ul>-->
-<!--        {% for x in my_words reversed %}-->
-<!--            <a href = "{% url 'wordpage' x.id %}">-->
-<!--            <li onclick="window.location= details"> {{x.word}} - {{x.translate}}-->
-<!--            </a>-->
-<!--            <a href = "{% url 'update' x.id %}">    &#128393; </li></a>-->
-<!--        {% endfor %}-->
-<!--      </ul>-->
-
-
-
 
 </div>
 {% endblock %}
