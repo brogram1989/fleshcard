@@ -1,0 +1,19 @@
+{% extends "my_card/base.html" %}
+
+{% block title %}
+add new word
+{% endblock %}
+
+{% block content %}
+    <h1>{{add_word_form.word.value}}</h1>
+    <h1>id = {{id}}</h1>
+    <a href="{% url 'set_list' id=id %}">go to set list</a><br>
+<hr>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ add_word_form.as_p   }}
+                <input type="submit" value="add">
+</form>
+
+
+{% endblock %}

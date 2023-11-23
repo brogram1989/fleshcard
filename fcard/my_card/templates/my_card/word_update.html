@@ -1,0 +1,18 @@
+{% extends "my_card/base.html" %}
+
+{% block title %}
+{{someword.word}}
+{% endblock %}
+
+{% block content %}
+<h1>update word</h1>
+
+<form action=""  method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="update">
+</form>
+
+
+
+{% endblock %}

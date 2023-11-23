@@ -10,7 +10,7 @@ Bosh sahifa. Djangodagi ilk proektim
       <p>Welcome to my first Django project!</p>
     {% for my_set in my_sets reversed %}
     <div>
-         <a href = "{% url 'set_list' my_set.name %}">
+         <a href = "{% url 'set_list' my_set.id %}">
              <li onclick="window.location= details"> {{my_set.name}}
          </a>
     </div>

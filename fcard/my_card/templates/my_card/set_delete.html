@@ -1,0 +1,18 @@
+{% extends "my_card/base.html" %}
+
+{% block title %}
+{{someset.name}}
+{% endblock %}
+
+{% block content %}
+
+  <h1>Delete {{ someset.name }} </h1>
+
+  <p>Are you sure you want to delete this {{ someset.name }} ?</p>
+
+<form action="" method="post">
+{% csrf_token %}
+<input type="submit" value="Delete">
+</form>
+
+{% endblock %}

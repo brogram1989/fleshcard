@@ -10,30 +10,8 @@ from .forms import *
 #Set modeldagi barcha setlarni chiqazib olamiz
 
 def index(request):
-    #index sahifasiga POST metod yordamida o'tilgan bo'lsa
-    if request.method == 'POST':
-        form = WordForm(request.POST)
-        if form.is_valid():
-
-            """birinchi html bilan, keyin Django.form yordamida forma yasadik.
-            modellar uchun formalarni birinchisida qo'lda yozib , keyin modelfrom
-            yordamida mavjud modellarning formalarini avtomatik yaratdik"""
-
-            band = form.save()
-
-            #return redirect('wordpage', band.id)
-            #word templatega qaytishimiz mumkun agar # ni olib qo'ysak
-
-            # if the form is not valid, we let execution continue to the return
-    else:
-        # this must be a GET request, so create an empty form
-        form = WordForm()
-
     my_sets = Set.objects.all()
-
-
     context = {'my_sets': my_sets }
-
     return render(request, 'my_card/index.html', context=context)
 
 def set_create(request):
@@ -49,9 +27,9 @@ def set_create(request):
         set_create = SetForm()
 
     return render(request, "my_card/set_create.html", {'set_create':set_create})
-def set_list(request, set_name):
+def set_list(request, id):
  
-    my_set = Set.objects.get(name=set_name)
+    my_set = Set.objects.get(id=id)
     context = {"my_set":my_set}
     return render(request, "my_card/set_list.html", context=context )
 
@@ -63,7 +41,7 @@ def set_update(request, id):
         if form.is_valid():
             #update existing set
             form.save()
-            return redirect('set_list', someset.name)
+            return redirect('set_list', someset.id)
         else:
             form = SetForm(instance=someset)
 
@@ -82,18 +60,31 @@ def wordpage(request, smth):
     someword = Word.objects.get(id=smth)
     return render(request, "my_card/word.html", {"someword":someword})
 
-def add(request):
+def add(request, id):
 
-    #so'z qo'shish uchun WordForm dan foydalanamiz
+    # index sahifasiga POST metod yordamida o'tilgan bo'lsa
+    if request.method == 'POST':
+        add_word_form = WordForm(request.POST)
+        # Check if the form is valid
+        if add_word_form.is_valid():
+            # Manually set the 'set' value before saving
+            add_word_form.instance.set_id_id = id
+            band = add_word_form.save()
+            # if the form is not valid, we let execution continue to the return
+    else:
+        # Display an empty form for GET requests
+        pass
+
     add_word_form = WordForm()
-    return render(request, "my_card/word_add.html", {'add_word_form':add_word_form})
+
+    return render(request, "my_card/word_add.html", {'add_word_form':add_word_form, 'id':id})
 
 def delete(request, id):
     someword = Word.objects.get(id=id) # we need this for both GET and POST
 
     if request.method == 'POST':
         #unit o'zgaruvchi set_listda qolishimiz uchun kerak
-        unit = someword.set_id
+        unit = someword.set_id.id
         someword.delete()
 
         # redirect to the wordpage
